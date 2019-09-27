@@ -33,3 +33,4 @@ class Timestamp:
        cv2.imshow('img7',ampm)
        
        cv2.waitKey(0)
+      
