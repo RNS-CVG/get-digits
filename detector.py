@@ -8,28 +8,37 @@ class Timestamp:
        x=1024
        h=100
        w=2200
+
        crop = self.image[y:y+h, x:]
       
 
-       day=crop[y:y+h,30:110]
-       cv2.imshow('img1',day) 
+       day=crop[y:y+h,50:110]
+
+       cv2.imwrite('day.png', day)
        
        month=crop[y:y+h,135:210]
-       cv2.imshow('img2',month)
-       
+
+       cv2.imwrite('month.png', month)
+
        year=crop[y:y+h,235:365]
-       cv2.imshow('img3',year)
-       
-       hours=crop[y:y+h,380:460]
-       cv2.imshow('img4',hours)
-       
-       mins=crop[y:y+h,480:560]
-       cv2.imshow('img5',mins)
-       
-       secs=crop[y:y+h,580:660]
-       cv2.imshow('img6',secs)
-       
+
+       cv2.imwrite('year.png', year)
+
+       hours=crop[y:y+h,390:445]
+
+       cv2.imwrite('hours.png', hours)
+
+       mins=crop[y:y+h,490:560]
+
+       cv2.imwrite('mins.png', mins)
+
+       secs=crop[y:y+h,590:660]
+
+       cv2.imwrite('secs.png', secs)
+
        ampm=crop[y:y+h,680:760]
-       cv2.imshow('img7',ampm)
+
+       cv2.imwrite('ampm.png', ampm)
        
        cv2.waitKey(0)
+
