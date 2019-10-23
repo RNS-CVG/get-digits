@@ -3,23 +3,36 @@ Extracts digits from timestamped images.
 
 ## Project Structure
 ```
--detector.py
--test.png
--main.py
+.
+├── media
+│   ├── left.mp4
+│   ├── README.md
+│   ├── right.mp4
+│   └── test_data
+│       ├── README.md
+│       ├── test1.png
+│       └── test.png
+├── print_timestamps.py
+├── README.md
+├── requirements.txt
+├── synchronize.py
+├── test.png
+└── timestamp.py
 ```
 
 * Crop the pixels of the timestamp data from the right corner of the image. 
     To do so, read the image with [cv2.imread()](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_gui/py_image_display/py_image_display.html), crop appropriate area with array slicing. An image can be treated like a 2D matrix of RGB tuples of (R, G, B) values. An example can be found [here](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_core/py_basic_ops/py_basic_ops.html).
-* Create an object oriented design to access the digits hereafter with variables for each digit.
-  ```
-  class Timestamp(image):
-     def __init__(self, image):
-        #Open image in a variable with self./<variable>
-     def getTime(self):
-        #create variables like below to store the 
-        #bounding boxes of each of the appropriate areas. 
-        #self.date
-        #self.time
-        . . .
-   ```
-* When .getTime() is invoked on a Timestamp object which is already initialised to a frame, it should return the appropriate bounding boxes of the content. 
+* The pytesseract API is then used to read the digits.
+* Invoke the following to view timestamps.
+  ```sh
+   python print_timestamps.py
+   # Format: left: <Left Timestamp> \t\t\tright: <Right Timestamp>
+  ``` 
+* The readings are extremely nosisy.
+# TODO
+
+* Create a script called *accuracy.py* which prints the correctly read values against the incorrect values.
+* Use a linux pipeline to feed in data or any other tool you can use.
+* The final file should print currently correctly detect:
+  ```right / (right + wrong) ```
+  and the same in % values.
