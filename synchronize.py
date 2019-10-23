@@ -1,4 +1,4 @@
-import timestamp
+import timestamp as T
 import numpy as np
 import cv2
 import sys
@@ -14,7 +14,7 @@ def openVideo(path): #Return capture object of video if opened successfully.
         print("Successfully opened: {}".format(path.split('/')[-1]))
     return cap
 
-def stereoContainer(video1, video2): #Takes in Capture object of two videos.
+def stereoContainer(video1, video2, show_video=True): #Takes in Capture object of two videos.
     while(video1.isOpened() and video2.isOpened()):
         _, frame1 = video1.read()
         _, frame2 = video2.read()
@@ -22,16 +22,19 @@ def stereoContainer(video1, video2): #Takes in Capture object of two videos.
         gray1 = cv2.cvtColor(frame1, cv2.COLOR_BGR2GRAY)
         gray2 = cv2.cvtColor(frame2, cv2.COLOR_BGR2GRAY)
 
-        s_left = cv2.resize(gray1, None, fx=FACTOR, fy=FACTOR)
-        s_right = cv2.resize(gray2, None, fx=FACTOR, fy=FACTOR)
+        print("left: {} \t\t\tright: {}".format(T.getTimestamp(gray1), T.getTimestamp(gray2)))
         
-        stereo = np.concatenate((s_left, s_right), axis=1)
+        if(show_video):
+            s_left = cv2.resize(gray1, None, fx=FACTOR, fy=FACTOR)
+            s_right = cv2.resize(gray2, None, fx=FACTOR, fy=FACTOR)
+            
+            stereo = np.concatenate((s_left, s_right), axis=1)
 
-        cv2.imshow("Stereo", stereo)
-        
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            video1.release(), video2.release()
-            break
+            cv2.imshow("Stereo", stereo)
+            
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                video1.release(), video2.release()
+                break
         
 
 
